@@ -14,10 +14,10 @@
     if ($args) {
       $stmt = $pdoConn->prepare($query);
       $stmt->execute($args); 
-      return $stmt->fetch(PDO::FETCH_ASSOC);
+      return $stmt;
     } else {
       $stmt = $pdoConn->query($query);
-      return $stmt->fetch(PDO::FETCH_ASSOC);
+      return $stmt;
     }
   }
 
