@@ -1,8 +1,8 @@
 <?php
   include('connect.php');
   $pdo = DBconnect('localhost', 'rubyquest', 'root', 'mysql');
-  $countResult = queryHandling($pdo, "SELECT COUNT(`id`) AS count FROM `characters`", []);
-  $charNames = queryHandling($pdo, "SELECT `name` FROM `characters`", []);
+  $countResult = queryHandling($pdo, "SELECT COUNT(`id`) AS count FROM `characters`", 0)->fetch(PDO::FETCH_ASSOC);
+  $charNames = queryHandling($pdo, "SELECT `name` FROM `characters`", 0)->fetchAll(PDO::FETCH_COLUMN);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -19,7 +19,7 @@
 <div id="container">
 <?php 
 foreach($charNames as $index => $curName) {
-  $charData = queryHandling($pdo, "SELECT `name`, `avatar`, `health`, `attack`, `defense` FROM `characters` WHERE `name`=:curName", ['curName' => $curName]);
+  $charData = queryHandling($pdo, "SELECT * FROM `characters` WHERE `name` = '" . $curName . "'", 0)->fetch(PDO::FETCH_ASSOC);
   echo '<a class="item" href="character.php?character=' . $charData['name'] . '">';
   echo '<div class="left">';
   echo '<img class="avatar" src="resources/images/' . $charData['avatar'] . '">';
