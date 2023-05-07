@@ -10,7 +10,7 @@
     }
   }
 
-  function queryHandling($pdoConn, $query) {
+  function queryHandling($pdoConn, $query, $args) {
     if ($args) {
       $stmt = $pdoConn->prepare($query);
       return $stmt;
